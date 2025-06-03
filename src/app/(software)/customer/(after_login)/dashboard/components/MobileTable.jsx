@@ -34,7 +34,7 @@ export default function MobileTable() {
     <>
       <div className="flex-1 overflow-y-auto">
         <div className="py-8 flex items-center justify-between">
-          <div className="relative flex-1">
+          <div className="relative flex-1 px-1">
             <Input
               type="text"
               placeholder="Search by Request ID"

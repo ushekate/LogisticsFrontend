@@ -80,20 +80,23 @@ export default function DocumentVerification() {
 							);
 						})}
 					</div>
-                    <div className="w-full h-1 bg-gray-200 mb-6">
-                        <div className="h-full bg-[#2E7D32] w-2/3 rounded" />
-                    </div>
+					<div className="w-full h-1 bg-gray-200 mb-6">
+						<div className="h-full bg-[#2E7D32] w-2/3 rounded" />
+					</div>
 				</div>
 
 
-				<div className="text-center mb-4">
-					<Lock className="mx-auto mb-2" />
-					<h2 className="text-lg font-semibold">Document Verification</h2>
-					<p className="text-sm text-gray-500">Your documents are being verified</p>
+				<div className="flex justify-center items-center mb-4">
+					<div className='bg-[#2E7D32] text-white rounded-full p-3'>
+						<Lock className="w-6 h-6" />
+					</div>
 				</div>
+					<h2 className="text-lg text-center font-semibold">Document Verification</h2>
+					<p className="text-sm text-center text-gray-500">Your documents are being verified</p>
+				
 
 
-				<div className="border border-dashed border-gray-300 rounded-lg p-4 mb-4 text-center">
+				<div className="border border-dashed bg-green-50 border-gray-400 hover:border-gray-500 rounded-lg p-4 mb-4 text-center">
 					<UploadCloud className="mx-auto mb-2 text-gray-500" />
 					<label className="cursor-pointer">
 						<span className="bg-[#2E7D32] text-white px-4 py-2 rounded-md inline-block">Browse Bill of Lading</span>
@@ -106,9 +109,9 @@ export default function DocumentVerification() {
 				</div>
 
 				{[
-                    { label: 'Bill of Lading', key: 'billOfLading' },
-                    { label: 'Commercial Invoice', key: 'commercialInvoice' },
-                    { label: 'Packing List', key: 'packingList' },
+					{ label: 'Bill of Lading', key: 'billOfLading' },
+					{ label: 'Commercial Invoice', key: 'commercialInvoice' },
+					{ label: 'Packing List', key: 'packingList' },
 				].map((doc, idx) => (
 					<div key={idx} className="flex items-center justify-between border rounded-md p-3 mb-2">
 						<div className="flex items-center gap-2">

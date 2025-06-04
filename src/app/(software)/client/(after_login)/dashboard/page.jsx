@@ -1,3 +1,4 @@
+
 'use client'
 import { useEffect } from "react";
 import { useSidebar } from "@/contexts/SidebarProvider";
@@ -38,7 +39,7 @@ export default function CustomerDashboardPage() {
 				/>
 			</div>
 
-			<div className="border-2 p-6 rounded-xl">
+			<div className="p-6 rounded-xl shadow-2xl bg-[var(--accent)]">
 				<h1 className="text-xl font-semibold">Recent Orders</h1>
 				{
 					useIsMobile() ? (

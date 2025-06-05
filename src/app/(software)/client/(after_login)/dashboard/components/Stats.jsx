@@ -155,57 +155,66 @@ export default function Stats({ orders = [] }) {
 				</div>
 			</div>
 
-			{/* <div className="md:w-full w-auto grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-8"> */}
+
 			{/* Line Chart */}
 			<div className="grid md:grid-cols-2 gap-6 py-6 h-fit text-gray-900">
-				<div className="bg-accent rounded-lg p-4 shadow-md border border-green-200">
-					<h2 className="text-lg font-semibold mb-2">Total Order Trends</h2>
-					<ResponsiveContainer width="100%" height={200}>
+
+				<div className="bg-[#e6f4ea] rounded-xl p-4 shadow-md border border-green-300">
+					<h2 className="text-lg font-semibold text-black mb-2">Total Order Trends</h2>
+					<ResponsiveContainer width="100%" height={220}>
 						<LineChart data={lineData}>
-							<CartesianGrid strokeDasharray="3 3" />
-							<XAxis dataKey="month" />
-							<YAxis />
+							<CartesianGrid strokeDasharray="3 3" stroke="#cce3d2" />
+							<XAxis dataKey="month" stroke="#555" />
+							<YAxis stroke="#555" />
 							<Tooltip />
-							<Line type="monotone" dataKey="orders" stroke="10b981" strokeWidth={2} dot />
+							<Line
+								type="monotone"
+								dataKey="orders"
+								stroke="#10b981"
+								strokeWidth={2}
+								dot={{ r: 4, stroke: '#10b981', strokeWidth: 2, fill: '#fff' }}
+								activeDot={{ r: 6 }}
+							/>
 						</LineChart>
 					</ResponsiveContainer>
 				</div>
+				
 
 				{/* Pie Chart */}
 				<div className="bg-accent rounded-lg p-4 shadow-md border border-green-200">
 					<h2 className="text-lg font-semibold mb-2">Service Usage Distribution</h2>
 					<div className="flex justify-between">
-						
-					<ResponsiveContainer width="50%" height={200}>
-						<PieChart>
-							<Pie
-								data={serviceData}
-								cx="50%"
-								cy="50%"
-								innerRadius={50}
-								outerRadius={80}
-								dataKey="value"
-								paddingAngle={5}
-							>
+
+						<ResponsiveContainer width="50%" height={200}>
+							<PieChart>
+								<Pie
+									data={serviceData}
+									cx="50%"
+									cy="50%"
+									innerRadius={50}
+									outerRadius={80}
+									dataKey="value"
+									paddingAngle={5}
+								>
+									{serviceData.map((entry, index) => (
+										<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+									))}
+								</Pie>
+							</PieChart>
+						</ResponsiveContainer>
+						<div className="flex flex-col justify-center pr-[10%]">
+							<ul className="text-sm mt-2 space-y-1">
 								{serviceData.map((entry, index) => (
-									<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+									<li key={index} className="flex items-center">
+										<span
+											className="inline-block w-3 h-3 rounded-full mr-2"
+											style={{ backgroundColor: COLORS[index % COLORS.length] }}
+										></span>
+										{entry.name}
+									</li>
 								))}
-							</Pie>
-						</PieChart>
-					</ResponsiveContainer>
-					<div className="flex flex-col justify-center pr-[10%]">
-					<ul className="text-sm mt-2 space-y-1">
-						{serviceData.map((entry, index) => (
-							<li key={index} className="flex items-center">
-								<span
-									className="inline-block w-3 h-3 rounded-full mr-2"
-									style={{ backgroundColor: COLORS[index % COLORS.length] }}
-								></span>
-								{entry.name}
-							</li>
-						))}
-					</ul>
-					</div>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -213,19 +222,25 @@ export default function Stats({ orders = [] }) {
 
 			<div className="grid md:grid-cols-2 gap-6 py-6 h-fit text-gray-900">
 				{/* Bar Chart */}
-				<div className="bg-accent rounded-lg p-4 shadow-md border border-green-200">
-					<h2 className="text-lg font-semibold mb-2">Approved Orders</h2>
-					<ResponsiveContainer width="100%" height={200}>
+
+				<div className="bg-[#e6f4ea] rounded-xl p-4 shadow-md border border-green-300">
+					<h2 className="text-lg font-semibold text-black mb-2">Approved Orders</h2>
+					<ResponsiveContainer width="100%" height={220}>
 						<BarChart data={approvedOrdersData}>
-							<CartesianGrid strokeDasharray="3 3" />
-							<XAxis dataKey="month" />
-							<YAxis />
+							<CartesianGrid strokeDasharray="3 3" stroke="#cce3d2" />
+							<XAxis dataKey="month" stroke="#555" />
+							<YAxis stroke="#555" />
 							<Tooltip />
-							<Bar dataKey="count" fill="#15803d" radius={[4, 4, 0, 0]} />
+							<Bar
+								dataKey="count"
+								fill="#15803d"
+								radius={[4, 4, 0, 0]}
+							/>
 						</BarChart>
 					</ResponsiveContainer>
 				</div>
-
+				
+				
 				{/* Latest Requests */}
 				<div className="bg-accent rounded-lg p-4 shadow-md border border-green-200">
 					<h2 className="text-lg font-semibold mb-4">Latest Requests</h2>

@@ -159,7 +159,7 @@ export default function Stats({ orders = [] }) {
 			{/* Line Chart */}
 			<div className="grid md:grid-cols-2 gap-6 py-6 h-fit text-gray-900">
 
-				<div className="bg-[#e6f4ea] rounded-xl p-4 shadow-md border border-green-300">
+				<div className="bg-accent rounded-xl p-4 shadow-2xl border-0">
 					<h2 className="text-lg font-semibold text-black mb-2">Total Order Trends</h2>
 					<ResponsiveContainer width="100%" height={220}>
 						<LineChart data={lineData}>
@@ -181,7 +181,7 @@ export default function Stats({ orders = [] }) {
 				
 
 				{/* Pie Chart */}
-				<div className="bg-accent rounded-lg p-4 shadow-md border border-green-200">
+				<div className="bg-accent rounded-xl p-4 shadow-2xl border-0">
 					<h2 className="text-lg font-semibold mb-2">Service Usage Distribution</h2>
 					<div className="flex justify-between">
 
@@ -223,7 +223,7 @@ export default function Stats({ orders = [] }) {
 			<div className="grid md:grid-cols-2 gap-6 py-6 h-fit text-gray-900">
 				{/* Bar Chart */}
 
-				<div className="bg-[#e6f4ea] rounded-xl p-4 shadow-md border border-green-300">
+				<div className="bg-accent rounded-xl p-4 shadow-2xl border-0">
 					<h2 className="text-lg font-semibold text-black mb-2">Approved Orders</h2>
 					<ResponsiveContainer width="100%" height={220}>
 						<BarChart data={approvedOrdersData}>
@@ -240,9 +240,9 @@ export default function Stats({ orders = [] }) {
 					</ResponsiveContainer>
 				</div>
 				
-				
+
 				{/* Latest Requests */}
-				<div className="bg-accent rounded-lg p-4 shadow-md border border-green-200">
+				<div className="bg-accent rounded-xl p-4 shadow-2xl border-0">
 					<h2 className="text-lg font-semibold mb-4">Latest Requests</h2>
 					<ul className="space-y-4 text-sm">
 						{requests.map((req, idx) => (

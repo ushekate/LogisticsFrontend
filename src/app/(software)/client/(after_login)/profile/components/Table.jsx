@@ -12,28 +12,7 @@ const tabs = ['CFS', 'Transport', '3PL', 'Warehouse'];
 
 export default function RequestList() {
 
-    // const getStatusColor = (status) => {
-    //     switch (status) {
-    //         case 'Accepted':
-    //             return 'bg-green-100 text-green-800';
-    //         case 'Pending':
-    //             return 'bg-yellow-100 text-yellow-800';
-    //         case 'Rejected':
-    //             return 'bg-red-100 text-red-800';
-    //         default:
-    //             return 'bg-gray-100 text-gray-800';
-    //     }
-    // };
-
-    // const [profile, setProfile] = useState({
-    //     name: 'John Doe',
-    //     email: 'john@example.com',
-    //     phone: '+91-9876543210',
-    //     company: 'Acme Logistics Pvt. Ltd.',
-    //     address: '123 street, City',
-    //     joined: '14-Apr-2024',
-    //     customerId: 'GOL-CUST-00321',
-    // });
+    
 
     const [profile, setProfile] = useState({
     name: 'Unnati',
@@ -154,95 +133,5 @@ export default function RequestList() {
             </div>
         </div>
 
-
-
-
-        // <div className="min-h-screen text-gray-800 p-6 md:p-10">
-        //   <div className='max-w-5xl mx-auto bg-accent rounded-lg shadow-2xl'>
-        //     {/* <div className='flex justify-end items-center mb-6'>
-        //         <h1 className='text-2xl font-bold text-green-800'>Client Profile</h1>
-        //         <button variant='outline'>Back</button>
-        //     </div> */}
-
-        //     <div className='flex flex-col items-center mb-6'>
-        //         <div className='w-24 h-24 rounded-full bg-gray-200 overflow-hidden mb-2'>
-        //             <img src="/profileImage.png" alt="profile" className='object-cover w-full h-full' />
-        //         </div>
-        //         <button className='border flex rounded items-center gap-2 px-2'>
-        //             <Upload className='h-4 w-4' /> Upload / Change Photo <RefreshCcw className='h-4 w-4' />
-        //         </button>
-        //     </div>
-
-        //     <div className='mb-6'>
-        //         <form action="">
-        //         <div className='grid grid-cols-1 md:grid-cols-2 gap-4 p-4'>
-        //             <div className='col-span-1'>
-        //                 <label htmlFor="" className='flex mb-2'><UserRound size={20} className='mr-2' />Full Name:</label>
-        //                 <input
-        //                     value={profile.name}
-        //                     onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-        //                     className='border w-[90%] p-2 h-8 rounded'
-        //                 />
-        //             </div>
-        //             <div>
-        //                 <label htmlFor="" className='flex mb-2'><Building2 size={20} className='mr-2' />Company:</label>
-        //                 <input
-        //                     value={profile.company}
-        //                     onChange={(e) => setProfile({ ...profile, company: e.target.value })}
-        //                     className='border w-[90%] p-2 h-8 rounded'
-        //                 />
-        //             </div>
-        //             <div>
-        //                 <label htmlFor="">Email:</label>
-        //             <input
-        //                 value={profile.email}
-        //                 onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-        //                 className='border w-[90%] p-2 h-8 rounded'
-        //             />
-        //             </div>
-        //             <div>
-        //                 <label htmlFor="">Address:</label>
-        //             <input
-        //                 value={profile.address}
-        //                 onChange={(e) => setProfile({ ...profile, address: e.target.value })}
-        //                 className='border w-[90%] p-2 h-8 rounded'
-        //             />
-        //             </div>
-        //             <div>
-        //                 <label htmlFor="">Phone No.:</label>
-        //             <input
-        //                 value={profile.phone}
-        //                 onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
-        //                 className='border w-[90%] p-2 h-8 rounded'
-        //             />
-        //             </div>
-        //             <div>
-        //                 <label htmlFor="">Joined:</label>
-        //             <input
-        //                 value={profile.joined}
-        //                 onChange={(e) => setProfile({ ...profile, joined: e.target.value })}
-        //                 className='border w-[90%] p-2 h-8 rounded'
-        //             />
-        //             </div>
-        //             <div>
-        //                 <label htmlFor="">Customer Id:
-
-        //                 </label>
-        //             <input
-        //                 value={profile.customerId}
-        //                 onChange={(e) => setProfile({ ...profile, customerId: e.target.value })}
-        //                 className='border w-[90%] p-2 h-8 rounded'
-        //             />
-        //             </div>
-
-        //         </div>
-        //         </form>
-        //         <div className='flex justify-end'>
-        //             <button>Edit Info</button>
-        //             <button>Change Password</button>
-        //         </div>
-        //     </div>
-        //   </div>
-        // </div>
     )
 };

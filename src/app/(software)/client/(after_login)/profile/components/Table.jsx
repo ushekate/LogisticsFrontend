@@ -1,5 +1,5 @@
 'use client';
-import { Building2, CircleCheckBig, CircleX, Download, Eye, LayoutGrid, MessageSquare, RefreshCcw, Upload, User, UserRound } from 'lucide-react';
+import { Building2, Calendar, CircleCheckBig, CircleX, Download, Earth, Eye, IdCard, LayoutGrid, MessageSquare, Phone, RefreshCcw, Upload, User, UserRound } from 'lucide-react';
 import { DataTable } from '@/components/ui/Table';
 import { orders } from '@/constants/orders';
 import Button from '@/components/ui/Button';
@@ -54,11 +54,26 @@ export default function RequestList() {
                         <label htmlFor="" className='flex mb-2'><Building2 size={20} className='mr-2' />Company :</label>
                         <input value={profile.company} onChange={(e) => setProfile({ ...profile, company: e.target.value})} className="input border rounded w-[80%] pl-2" placeholder="Company" />
                     </div>
-                    <input value={profile.email} className="input" placeholder="Email" readOnly />
-                    <input value={profile.address} className="input" placeholder="Address" readOnly />
-                    <input value={profile.phone} className="input" placeholder="Phone" readOnly />
-                    <input value={profile.joined} className="input" placeholder="Joined On" readOnly />
-                    <input value={profile.customerId} className="input" placeholder="Customer ID" readOnly />
+                    <div>
+                        <label htmlFor="" className='flex mb-2'><MessageSquare size={20} className='mr-2' />Email:</label>
+                        <input value={profile.email} onChange={(e) => setProfile({ ...profile, email: e.target.value})} className="input border rounded w-[80%] pl-2" placeholder="Email" />
+                    </div>
+                    <div>
+                        <label htmlFor="" className='flex mb-2'><Earth size={20} className='mr-2' />Address:</label>
+                        <input value={profile.address} onChange={(e) => setProfile({ ...profile, address: e.target.value })} className="input border rounded w-[80%] pl-2" placeholder="Address" />
+                    </div>
+                    <div>
+                        <label htmlFor="" className='flex mb-2'><Phone size={20} className='mr-2' />Phone:</label>
+                    <input value={profile.phone} onChange={(e) => setProfile({ ...profile, phone: e.target.value })} className="input border rounded w-[80%] pl-2" placeholder="Phone" />
+                    </div>
+                    <div>
+                        <label htmlFor="" className='flex mb-2'><Calendar size={20} className='mr-2' />Joined:</label>
+                        <input value={profile.joined} onChange={(e) => setProfile({ ...profile, joined: e.target.value})} className="input border rounded w-[80%] pl-2" placeholder="Joined On" />
+                    </div>
+                    <div>
+                        <label htmlFor="" className='flex mb-2'><IdCard size={20} className='mr-2' />Customer Id:</label>
+                        <input value={profile.customerId} onChange={(e) => setProfile({ ...profile, customerId: e.target.value})} className="input border rounded w-[80%] pl-2" placeholder="Customer ID" />
+                    </div>
 
                     <div className="col-span-full flex gap-4 mt-2">
                         <button className="bg-green-600 text-white px-4 py-2 rounded">Edit Info</button>

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Search, Download, } from 'lucide-react';
-import Input from '@/components/ui/Input';
+import { Input } from '@/components/ui/Input';
 import { orders } from '@/constants/orders';
 
 export default function MobileTable() {

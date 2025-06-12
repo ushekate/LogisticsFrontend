@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-table";
 import { ChevronDown, Search } from "lucide-react";
 import { Button } from "./Button";
-import Input from "./Input";
+import { Input } from "./Input";
 import { Select, SelectItem } from "./Select";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "./DropDown";
 

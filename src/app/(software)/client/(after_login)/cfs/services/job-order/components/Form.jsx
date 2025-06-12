@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 import { Plus, Upload } from 'lucide-react';
 import MultipleInput from '@/components/ui/MultipleInput';
 import { Select, SelectItem } from '@/components/ui/Select';

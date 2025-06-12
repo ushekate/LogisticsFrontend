@@ -1,8 +1,9 @@
 'use client';
-import { useState } from 'react';
-import { Eye } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Tabs } from '@/components/ui/Tabs';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/Input';
+import TableList from './Table';
 
 export default function UserVerificationDesktop() {
   const [userType, setUserType] = useState('CFS');
@@ -10,50 +11,71 @@ export default function UserVerificationDesktop() {
   const [status, setStatus] = useState('');
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
+  const [allUsers, setAllUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const users = [
-    { firstName: 'Blue', lastName: 'Star CFS', role: 'CFS', status: 'Pending' },
-    { firstName: 'Vishal', lastName: 'Its', role: 'Customer', status: 'Approved' },
-    { firstName: 'Green', lastName: 'Logs CFS', role: 'CFS', status: 'Rejected' },
-    { firstName: 'Fname', lastName: 'Customer', role: 'Customer', status: 'Pending' },
-    { firstName: 'FirstName', lastName: 'Star CFS', role: 'CFS', status: 'Approved' },
-    { firstName: 'Green', lastName: 'Star', role: 'Customer', status: 'Rejected' },
-  ];
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setAllUsers([
+        { firstName: 'Blue', lastName: 'Star CFS', role: 'CFS', status: 'Pending', createdAt: '2024-06-01' },
+        { firstName: 'John', lastName: 'Doe', role: 'CFS', status: 'Approved', createdAt: '2024-06-01' },
+        { firstName: 'Vishal', lastName: 'Its', role: 'Customer', status: 'Approved', createdAt: '2024-06-04' },
+        { firstName: 'Green', lastName: 'Logs CFS', role: 'CFS', status: 'Rejected', createdAt: '2024-05-25' },
+        { firstName: 'Fname', lastName: 'Customer', role: 'Customer', status: 'Pending', createdAt: '2024-06-07' },
+        { firstName: 'FirstName', lastName: 'Star CFS', role: 'CFS', status: 'Approved', createdAt: '2024-06-02' },
+        { firstName: 'Green', lastName: 'Star', role: 'Customer', status: 'Rejected', createdAt: '2024-05-29' },
+      ]);
+      setLoading(false);
+    }, 1000);
+  }, []);
 
-  const filteredUsers = users.filter(user => {
-    return (
-      user.role === (userType === 'Customer' ? 'Customer' : 'CFS') &&
-      user.firstName.toLowerCase().includes(search.toLowerCase()) &&
-      (status === '' || user.status === status)
-    );
+  const filteredUsers = allUsers.filter((user) => {
+    const matchesRole = user.role === userType;
+    const matchesSearch = user.firstName.toLowerCase().includes(search.toLowerCase());
+    const matchesStatus = status === '' || user.status === status;
+
+    const userDate = new Date(user.createdAt);
+    const from = fromDate ? new Date(fromDate) : null;
+    const to = toDate ? new Date(toDate) : null;
+
+    const matchesDate =
+      (!from || userDate >= from) &&
+      (!to || userDate <= to);
+
+    return matchesRole && matchesSearch && matchesStatus && matchesDate;
   });
 
   return (
-    <div className="p-6 bg-[var(--background)] min-h-screen text-green-950">
+    <div className="p-4 sm:p-6 bg-[var(--background)] min-h-screen text-green-950">
+      <div className="bg-accent shadow-lg p-4 rounded-md mb-6 border-0">
 
-      <div className="bg-accent shadow-2xl p-4 rounded-md mb-6 border-0">
+        <div className='flex flex-wrap gap-2 mb-4'>
+          <Tabs>
+            <Input
+              type="button"
+              value="CFS"
+              onClick={() => setUserType('CFS')}
+              className={`border-0 cursor-pointer px-4 py-2 rounded-md ${
+                userType === 'CFS' ? 'bg-primary text-white' : 'bg-white'
+              }`}
+            />
+          </Tabs>
+          <Tabs>
+            <Input
+              type="button"
+              value="Customer"
+              onClick={() => setUserType('Customer')}
+              className={`border-0 cursor-pointer px-4 py-2 rounded-md ${
+                userType === 'Customer' ? 'bg-primary text-white' : 'bg-white'
+              }`}
+            />
+          </Tabs>
+        </div>
 
-          <div className='flex gap-4 mb-4'>
-            <Tabs>
-              <input 
-                  type="button"
-                  name="userType"
-                  value="CFS"
-                  checked={userType === 'CFS'}
-                  onClick={(e) => setUserType(e.target.value)} />
-            </Tabs>
-            <Tabs>
-              <input 
-                  type="button"
-                  name="userType"
-                  value="Customer"
-                  checked={userType === 'Customer'}
-                  onClick={(e) => setUserType(e.target.value)} />
-            </Tabs>
-          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <input
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Input
             type="text"
             placeholder="Search Name"
             value={search}
@@ -70,13 +92,13 @@ export default function UserVerificationDesktop() {
             <option value="Approved">Approved</option>
             <option value="Rejected">Rejected</option>
           </select>
-          <input
+          <Input
             type="date"
             value={fromDate}
             onChange={(e) => setFromDate(e.target.value)}
             className="p-2 rounded-md border"
           />
-          <input
+          <Input
             type="date"
             value={toDate}
             onChange={(e) => setToDate(e.target.value)}
@@ -86,50 +108,8 @@ export default function UserVerificationDesktop() {
       </div>
 
 
-      <div className="bg-accent shadow-2xl p-4 rounded-md border-0">
-        <h2 className="text-lg font-semibold mb-3">
-          {userType === 'CFS' ? 'Container Freight Station (CFS)' : 'Customers'}
-        </h2>
-        <table className="w-full text-left">
-          <thead>
-            <tr className="border-b border-green-300">
-              <th className="p-2">First Name</th>
-              <th className="p-2">Last Name</th>
-              <th className="p-2">Role</th>
-              <th className="p-2">Status</th>
-              <th className="p-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredUsers.map((user, idx) => (
-              <tr key={idx} className="border-b border-green-300">
-                <td className="p-2 font-medium">{user.firstName}</td>
-                <td className="p-2">{user.lastName}</td>
-                <td className="p-2">
-                  <span className={`px-2 py-1 rounded-full text-sm text-[#1E40AF] ${user.role === 'CFS' ? 'bg-[#DBEAFE]' : 'bg-[#DBEAFE] text-[#1E40AF]'}`}>
-                    {user.role}
-                  </span>
-                </td>
-                <td className="p-2">
-                  <span className={`px-2 py-1 rounded-full text-sm ${user.status === 'Pending' ? 'bg-[#FEF9C3] text-[#854D0E]' : user.status === 'Approved' ? 'bg-[#DCFCE7] text-[#166534]' : 'bg-[#FEE2E2] text-[#991B1B]'}`}>
-                    {user.status}
-                  </span>
-                </td>
-                <td className="p-2">
-                  <button className="flex items-center gap-1 bg-[#2563EB2B] text-[#2563EB] px-3 py-1 rounded-full">
-                    <Eye className="w-4 h-4" />
-                    View
-                  </button>
-                </td>
-              </tr>
-            ))}
-            {filteredUsers.length === 0 && (
-              <tr>
-                <td colSpan={5} className="p-4 text-center text-gray-500">No users found</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <div className="overflow-x-auto">
+        <TableList users={filteredUsers} userType={userType} loading={loading} />
       </div>
     </div>
   );

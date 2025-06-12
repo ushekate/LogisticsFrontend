@@ -49,7 +49,6 @@ export default function CustomerDashboardPage() {
 					)
 				}
 			</div>
-			{/* <Notifications /> */}
 		</section>
 	)
 }

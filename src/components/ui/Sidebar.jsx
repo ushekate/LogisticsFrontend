@@ -1,6 +1,6 @@
 import { useSidebar } from '@/contexts/SidebarProvider';
 import { CompanyName } from '@/constants/CompanyName';
-import { Bell, LogOutIcon, PanelLeft, User, ChevronDown, ChevronRight, X, MessageSquare, CircleUserRound, Sailboat, Settings, LayoutDashboard } from 'lucide-react';
+import { Bell, LogOutIcon, PanelLeft, User, ChevronDown, ChevronRight, X, MessageSquare, CircleUserRound, Sailboat, Settings, LayoutDashboard, Ticket } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Button from './Button';
 import { navLinks } from '@/constants/navLinks';
@@ -27,6 +27,7 @@ export default function Sidebar({
 		{ icon: <MessageSquare className='text-[var(--foreground)]' />, text: "Messages" },
 		{ icon: <CircleUserRound className='text-[var(--foreground)]' />, text: "Profile" },
 		{ icon: <LayoutDashboard className='text-[var(--foreground)]' />, text: "Dashboard" },
+		{ icon: <Ticket className='text-[var(--foreground)]' />, text: "Tickets" },
 	];
 
 	const hostItems = [

@@ -1,8 +1,10 @@
 'use client';
 
 import { Pencil, PencilLine, Trash2 } from "lucide-react";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 
 
 const initialTickets = [
@@ -36,10 +38,12 @@ const initialTickets = [
 ];
 
 const statusColorMap = {
-    pending: 'bg-yellow-100 text-yellow-800',
-    resolved: 'bg-green-100 text-green-800',
-    closed: 'bg-gray-200 text-gray-800',
+    pending: 'bg-yellow-100 text-yellow-800 border border-yellow-300',
+    resolved: 'bg-green-100 text-green-800 border border-green-300',
+    closed: 'bg-gray-200 text-gray-800 border border-gray-300',
 };
+
+
 
 export default function TicketPage() {
     const [activeTab, setActiveTab] = useState('customer');
@@ -47,9 +51,7 @@ export default function TicketPage() {
     const router = useRouter();
 
     const handleDelete = (id) => {
-        const updatedTickets = tickets.map(ticket => 
-            ticket.id === id ? { ...ticket, date: '' } : ticket
-        );
+        const updatedTickets = tickets.filter(ticket => ticket.id !== id);
         setTickets(updatedTickets);
     };
 
@@ -57,32 +59,41 @@ export default function TicketPage() {
         router.push(`/client/Tickets/supportTicket/editTicket?id=${id}`);
     }
 
-    return(
+    return (
         <div className="p-4 bg-accent rounded shadow-lg text-sm">
 
             {/* Tabs */}
-            <div className="flex bg-[#B1CCB4] w-fit p-2 rounded mb-4">
-                <div className="flex">
-                    <button
-                        className={`px-4 py-2 rounded ${activeTab === 'customer' ? 'bg-green-800 text-white' : 'bg-[#B1CCB4] border-0 text-green-700'}`}
+            <div className="flex w-fit p-2 rounded mb-4">
+                    <Tabs>
+                        <TabsList className="bg-background">
+                            <TabsTrigger value="customer" onClick={() => setActiveTab('customer')} className={`px-4 py-2 rounded font-semibold ${activeTab === 'customer' ? 'bg-[#2E6F40] text-white' : 'bg-background border-0 text-[#333336] font-semibold'}`}>
+                                Customer Tickets
+                            </TabsTrigger>
+                            <TabsTrigger value="client" onClick={() => setActiveTab('client')} className={`px-4 py-2 rounded font-semibold ${activeTab === 'client' ? 'bg-[#2E6F40] text-white' : 'bg-background border-0 text-[#333336] font-semibold'}`}>
+                                Client Tickets
+                            </TabsTrigger>
+                        </TabsList>
+                    </Tabs>
+                    {/* <Button
+                        className={`px-4 py-2 rounded font-semibold ${activeTab === 'customer' ? 'bg-[#2E6F40] text-white' : 'bg-[#B1CCB4] border-0 text-[#333336] font-semibold'}`}
                         onClick={() => setActiveTab('customer')}
                     >
                         Customer Tickets
-                    </button>
-                    <button
-                        className={`px-4 py-2 rounded ${activeTab === 'client' ? 'bg-green-800 text-white' : 'bg-[#B1CCB4] border-0 text-green-700'}`}
+                    </Button>
+                    <Button
+                        className={`px-4 py-2 rounded font-semibold ${activeTab === 'client' ? 'bg-[#2E6F40] text-white' : 'bg-[#B1CCB4] border-0 text-[#333336] font-semibold'}`}
                         onClick={() => setActiveTab('client')}
                     >
                         Client Tickets
-                    </button>
-                </div>
+                    </Button> */}
             </div>
 
 
-            <div className="overflow-x-auto">
+            {/* For Desktop Device */}
+            <div className="hidden md:block overflow-x-auto">
                 <table className="w-full border border-green-700 rounded-md overflow-hidden">
                     <thead className="bg-[#d7eadc] text-left border-b border-green-700">
-                        <tr className="text-gray-800">
+                        <tr className="text-[#71717A]">
                             <th className="p-3">No</th>
                             <th className="p-3">Customer Name</th>
                             <th className="p-3">CFS Location</th>
@@ -93,21 +104,84 @@ export default function TicketPage() {
                             <th className="p-3">Actions</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        {tickets.map((ticket, index) => (
-                            <tr key={ticket.id} className="border-b border-green-700 hover:bg-green-50 transition">
-                                <td className="p-3">{index + 1}</td>
-                                <td className="p-3 font-semibold">{ticket.customerName}</td>
-                                <td className="p-3">{ticket.location}</td>
-                                <td className="p-3">{ticket.issueTitle}</td>
-                                <td className="p-3">{ticket.type}</td>
-                                <td className="p-3">
-                                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColorMap[ticket.status]}`}>
+                        {tickets.length === 0 ? (
+                            <tr>
+                                <td colSpan="8" className="text-center text-gray-500 py-4">
+                                    No tickets found.
+                                </td>
+                            </tr>
+                        ) : (
+                            tickets.map((ticket, index) => (
+                                <tr key={ticket.id} className="border-b text-black border-green-700 hover:bg-green-50 transition">
+                                    <td className="p-3">{index + 1}</td>
+                                    <td className="p-3 font-semibold">{ticket.customerName}</td>
+                                    <td className="p-3">{ticket.location}</td>
+                                    <td className="p-3">{ticket.issueTitle}</td>
+                                    <td className="p-3">{ticket.type}</td>
+                                    <td className="p-3">
+                                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColorMap[ticket.status.toLowerCase()]}`}>
+                                            {ticket.status}
+                                        </span>
+                                    </td>
+                                    <td className="p-3">{ticket.date || '-'}</td>
+                                    <td className="p-3 flex gap-4 items-center">
+                                        <button className="text-green-700 hover:text-green-900" onClick={() => handleEdit(ticket.id)}>
+                                            <Pencil size={16} />
+                                        </button>
+                                        <button className="text-red-700 hover:text-red-900" onClick={() => handleDelete(ticket.id)}>
+                                            <Trash2 size={16} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+
+                </table>
+            </div>
+
+
+            {/* For Mobile Device */}
+            <div className="block md:hidden space-y-4">
+                {tickets.length === 0 ? (
+                    <div>
+                        <p className="text-center text-gray-500 py-4">
+                            No tickets found.
+                        </p>
+                    </div>
+                ) : (
+                    tickets.map((ticket, index) => (
+                        <div key={ticket.id} className="border border-green-700 rounded-lg p-4 bg-background shadow-sm">
+                            <div className="flex justify-between mb-2 text-sm text-gray-600">
+                                <span className="font-bold text-black">#{index + 1}</span>
+                                <span>{ticket.date || '-'}</span>
+                            </div>
+                            <div className="mb-1 flex gap-2">
+                                <strong className="block text-green-800">Customer:</strong>
+                                <span className="text-black">{ticket.customerName}</span>
+                            </div>
+                            <div className="mb-1 flex gap-2">
+                                <strong className="block text-green-800">Location:</strong>
+                                <span className="text-black">{ticket.location}</span>
+                            </div>
+                            <div className="mb-1 flex gap-2">
+                                <strong className="block text-green-800">Issue:</strong>
+                                <span className="text-black">{ticket.issueTitle}</span>
+                            </div>
+                            <div className="mb-1 flex gap-2">
+                                <strong className="block text-green-800">Type:</strong>
+                                <span className="text-black">{ticket.type}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <div className="flex gap-2">
+                                    <strong className="block text-green-800">Status:</strong>
+                                    <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full ${statusColorMap[ticket.status.toLowerCase()]}`}>
                                         {ticket.status}
                                     </span>
-                                </td>
-                                <td className="p-3">{ticket.date || '-'}</td>
-                                <td className="p-3 flex gap-2 items-center">
+                                </div>
+                                <div className="flex justify-end gap-4">
                                     <button
                                         className="text-green-700 hover:text-green-900"
                                         onClick={() => handleEdit(ticket.id)}
@@ -120,11 +194,11 @@ export default function TicketPage() {
                                     >
                                         <Trash2 size={16} />
                                     </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                )}
             </div>
 
         </div>
